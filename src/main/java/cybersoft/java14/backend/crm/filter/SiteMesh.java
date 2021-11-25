@@ -4,7 +4,18 @@ import javax.servlet.annotation.WebFilter;
 
 import com.opensymphony.sitemesh.webapp.SiteMeshFilter;
 
-@WebFilter(filterName = "sitemesh", urlPatterns = "/*")
+import cybersoft.java14.backend.crm.util.UrlConst;
+
+@WebFilter(filterName = "sitemesh", urlPatterns = {
+		UrlConst.HOME,
+		UrlConst.PROFILE,
+		UrlConst.PROJECT,
+		UrlConst.PROJECT + "/*",
+		UrlConst.USER,
+		UrlConst.USER + "/*",
+		UrlConst.TASK,
+		UrlConst.TASK + "/*"
+})
 public class SiteMesh extends SiteMeshFilter {
 	
 }

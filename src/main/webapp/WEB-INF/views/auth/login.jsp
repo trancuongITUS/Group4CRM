@@ -2,11 +2,24 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<div class="layout-login">
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login</title>
+
+    <jsp:include page="/WEB-INF/views/layout/header.jsp" />
+</head>
+
+
+<body class="layout-login">
 	<div class="layout-login__overlay"></div>
 	<div class="layout-login__form bg-white" data-perfect-scrollbar>
         <div class="d-flex justify-content-center mt-2 mb-5 navbar-light">
-            <a href="index.html" class="navbar-brand" style="min-width: 0">
+            <a href="home" class="navbar-brand" style="min-width: 0">
                 <img class="navbar-brand-icon" src="assets/images/logo.png" width="250" alt="Stack">
             </a>
         </div>
@@ -45,8 +58,12 @@
             </div>
             <div class="form-group text-center">
                 <button class="btn btn-primary mb-5" type="submit">Login</button><br>
-                <a href="">Forgot password?</a> <br> Don't have an account? <a class="text-body text-underline" href="signup.html">Sign up!</a>
+                <a href="">Forgot password?</a> <br> Don't have an account? <a class="text-body text-underline" href="signup">Sign up!</a>
             </div>
         </form>
 	</div>
-</div>
+	
+	<jsp:include page="/WEB-INF/views/layout/footer.jsp" />
+</body>
+
+</html>

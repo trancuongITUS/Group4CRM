@@ -20,10 +20,10 @@
                             Project
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="project-manage">Manage</a>
-                            <a class="dropdown-item" href="project-create">Create</a>
-                            <a class="dropdown-item" href="project-assignment">Assignment</a>
-                            <a class="dropdown-item" href="project-statistics">Statistics</a>
+                            <a class="dropdown-item" href="project/project-manage">Manage</a>
+                            <a class="dropdown-item" href="project/project-create">Create</a>
+                            <a class="dropdown-item" href="project/project-assignment">Assignment</a>
+                            <a class="dropdown-item" href="project/project-statistics">Statistics</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -31,10 +31,9 @@
                             User
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="user-list">List</a>
-                            <a class="dropdown-item" href="user-create">Create</a>
-                            <a class="dropdown-item" href="user-delete">Delete</a>
-                            <a class="dropdown-item" href="user-authorization">Authorization</a>
+                            <a class="dropdown-item" href="user/user-list">List</a>
+                            <a class="dropdown-item" href="user/user-create">Create</a>
+                            <a class="dropdown-item" href="user/user-authorization">Authorization</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -42,8 +41,9 @@
                             Task
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="task-list">List</a>
-                            <a class="dropdown-item" href="task-statistics">Statistics</a>
+                            <a class="dropdown-item" href="task/task-list">List</a>
+                            <a class="dropdown-item" href="task/task-progress">Progress</a>
+                            <a class="dropdown-item" href="task/task-statistics">Statistics</a>
                         </div>
                     </li>
                 </ul>
