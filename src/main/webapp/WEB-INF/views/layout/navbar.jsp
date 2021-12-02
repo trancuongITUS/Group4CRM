@@ -12,7 +12,7 @@
             <div class="navbar-collapse collapse" id="navbarsExample03">
                 <ul class="nav navbar-nav flex">
                     <li class="nav-item">
-                        <a class="nav-link active" href='<c:url value="home" />'>
+                        <a class="nav-link active" href="/crm/home">
                             Home</a>
                     </li>
                     <li class="nav-item dropdown">
@@ -26,6 +26,10 @@
                             <a class="dropdown-item" href="project/project-statistics">Statistics</a>
                         </div>
                     </li>
+                    <li class="nav-item">
+                    	<a href="/crm/user" class="nav-link">User Management</a>
+                    </li>
+                    <!-- 
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                             User
@@ -36,6 +40,7 @@
                             <a class="dropdown-item" href="user/user-authorization">Authorization</a>
                         </div>
                     </li>
+                     -->
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                             Task
