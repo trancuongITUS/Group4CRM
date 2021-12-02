@@ -98,8 +98,6 @@ public class User {
 			return false;
 		
 		User other = (User) obj;
-		return other.role.equals(this.role);
+		return other.email.equals(this.email);
 	}
-	
-	
 }

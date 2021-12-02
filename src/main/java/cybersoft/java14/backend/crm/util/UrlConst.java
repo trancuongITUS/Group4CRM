@@ -27,5 +27,5 @@ public class UrlConst {
 	public static final String USER = "/user";
 	public static final String USER_AUTHOR = "/user/user-authorization";
 	public static final String USER_CREATE = "/user/user-create";
-	public static final String USER_LIST = "/user/user-list";
+	public static final String USER_DELETE = "/user/user-delete";
 }
