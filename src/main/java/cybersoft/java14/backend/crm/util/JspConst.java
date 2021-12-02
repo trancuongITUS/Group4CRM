@@ -16,6 +16,7 @@ public class JspConst {
 	public static final String PROJECT_CREATE = "/WEB-INF/views/project/projectcreate.jsp";
 	public static final String PROJECT_MANAGE = "/WEB-INF/views/project/projectmanage.jsp";
 	public static final String PROJECT_STATISTICS = "/WEB-INF/views/project/projectstatistics.jsp";
+	
 	/* Task */
 	public static final String TASK_LIST = "/WEB-INF/views/task/tasklist.jsp";
 	public static final String TASK_PROGRESS = "/WEB-INF/views/task/taskprogress.jsp";

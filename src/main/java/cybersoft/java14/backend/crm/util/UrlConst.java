@@ -17,6 +17,8 @@ public class UrlConst {
 	public static final String PROJECT_CREATE = "/project/project-create";
 	public static final String PROJECT_MANAGE = "/project/project-manage";
 	public static final String PROJECT_STATISTICS = "/project/project-statistics";
+	public static final String PROJECT_REMOVE = "/project/project-remove"; //mới thêm
+	public static final String PROJECT_ADD = "/project/project-add"; //mới thêm
 	/* Task */
 	public static final String TASK = "/task";
 	public static final String TASK_LIST = "/task/task-list";
