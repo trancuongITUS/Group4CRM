@@ -15,7 +15,7 @@
                 </button>
 
                 <!-- Navbar Brand -->
-                <a href='<c:url value="home" />' class="navbar-brand">
+                <a href="/crm/home" class="navbar-brand">
                     <img class="navbar-brand-icon" src='<c:url value="/assets/images/logo.png" />' height="50" alt="Cybersoft" />
                 </a>
 
