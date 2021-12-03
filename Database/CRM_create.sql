@@ -30,10 +30,19 @@ create table if not exists crm_project
     project_name varchar(255) not null,
     project_description varchar(255),
     start_at date,
-    end_date date,
+    end_at date,
     create_user int,
     
     constraint PK_Project primary key (project_id)
+);
+
+create table if not exists crm_project_users
+(
+	id int auto_increment,
+    project_id int,
+    user_id int,
+    
+    constraint PK_ProjectUsers primary key (id)
 );
 
 create table if not exists crm_status
@@ -48,7 +57,7 @@ create table if not exists crm_status
 create table if not exists crm_task
 (
 	task_id int auto_increment,
-    asssignee int,
+    assignee int,
     task_name varchar(255) not null,
     task_description varchar(255),
     start_at date,
@@ -69,7 +78,7 @@ foreign key (create_user) references crm_user(user_id);
 
 alter table crm_task
 add constraint FK_task_user
-foreign key (asssignee) references crm_user(user_id);
+foreign key (assignee) references crm_user(user_id);
 
 alter table crm_task
 add constraint FK_task_project
@@ -78,3 +87,11 @@ foreign key (task_project) references crm_project(project_id);
 alter table crm_task
 add constraint FK_task_status
 foreign key (task_status) references crm_status(status_id);
+
+alter table crm_project_users
+add constraint FK_project
+foreign key (project_id) references crm_project(project_id);
+
+alter table crm_project_users
+add constraint FK_users
+foreign key (user_id) references crm_user(user_id);

@@ -26,12 +26,7 @@ public class UserService {
 			return null;
 		}
 		
-		for (User user : users) {
-			if (email.equals(user.getEmail()))
-				return user;
-		}
-		
-		return null;
+		return repository.getUserByEmail(email);
 	}
 	
 	public boolean addUser(User user) {
