@@ -51,6 +51,44 @@ public class UserRepository {
 		return users;
 	}
 	
+	public User getUserByEmail(String email) {
+		User user = new User();
+		
+		try {
+			Connection connection = MySQLConnection.getConnection();
+			String query = "SELECT user_name, user_role, email, phone, address, role_name, role_description "
+					+ "FROM crm_user JOIN crm_role ON user_role = role_id"
+					+ "WHERE email = ?";
+			
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setString(1, email);
+			ResultSet rs = statement.executeQuery();
+			
+			if (rs.first()) {
+				String name = rs.getString("user_name");
+				int role_id = rs.getInt("user_role");
+				String role_name = rs.getString("role_name");
+				String role_description = rs.getString("role_description");
+				String phone = rs.getString("phone");
+				String address = rs.getString("address");
+				
+				Role role = new Role(role_id, role_name, role_description);
+				user.setName(name);
+				user.setRole(role);
+				user.setEmail(email);
+				user.setPhone(phone);
+				user.setAddress(address);
+				
+				return user;
+			}
+		} catch (SQLException e) {
+			System.out.println("Không thể kết nối đến cơ sở dữ liệu!");
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
 	public int addUser(User user) {
 		try {
 			Connection connection = MySQLConnection.getConnection();
@@ -78,15 +116,27 @@ public class UserRepository {
 	}
 	
 	public int deleteUser(String email) {
+		User user = getUserByEmail(email);
+		
 		try {
 			Connection connection = MySQLConnection.getConnection();
-			String query = "DELETE FROM crm_user WHERE email = ?";
 			
-			PreparedStatement statement = connection.prepareStatement(query);
+			String deleteQuery = "DELETE FROM crm_user WHERE email = ?";
+			String updateProjectQuery = "UPDATE crm_project SET create_user = null WHERE create_user = ?";
+			String updateTaskQuery = "UPDATE crm_task SET assignee = null WHERE assignee = ?";
 			
-			statement.setString(1, email);
+			PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery);
+			PreparedStatement updateProjectStatement = connection.prepareStatement(updateProjectQuery);
+			PreparedStatement updateTaskStatement = connection.prepareStatement(updateTaskQuery);
 			
-			return statement.executeUpdate();
+			updateProjectStatement.setInt(1, user.getId());
+			updateTaskStatement.setInt(1, user.getId());
+			deleteStatement.setString(1, email);
+			
+			updateProjectStatement.executeUpdate();
+			updateTaskStatement.executeUpdate();
+			
+			return deleteStatement.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Không thể kết nối đến cơ sở dữ liệu");
 			e.printStackTrace();
