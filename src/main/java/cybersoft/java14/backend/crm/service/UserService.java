@@ -17,6 +17,15 @@ public class UserService {
 		return repository.getUsers();
 	}
 	
+	public List<User> getEmployees() {
+		return repository.getEmployees();
+	}
+	
+	public List<User> getUsersNotEmployees() {
+		return repository.getUsersNotEmployees();
+	}
+	
+	
 	public User getUserByEmail(String email) {
 		if (email == null || "".equals(email)) {
 			return null;

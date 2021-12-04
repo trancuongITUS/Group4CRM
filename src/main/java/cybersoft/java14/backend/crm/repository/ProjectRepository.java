@@ -4,33 +4,51 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
 
 import cybersoft.java14.backend.crm.database.MySQLConnection;
 import cybersoft.java14.backend.crm.model.Project;
+import cybersoft.java14.backend.crm.model.Role;
+import cybersoft.java14.backend.crm.model.User;
 
 public class ProjectRepository {
-	public List<Project> getProject(){
+	public List<Project> getProject() {
+		UserRepository userRepository = new UserRepository();
+		List<User> users = userRepository.getUsers();
+		
 		List<Project> projects = new LinkedList<Project>();
 		Connection connection = null;
+		
 		try {
 			connection = MySQLConnection.getConnection();
-			String query = "SELECT project_id, project_name, project_description, start_at, end_date, create_user FROM crm_project";
+			String query = "SELECT project_id, project_name, project_description, start_at, end_at, create_user "
+					+ "FROM crm_project";
 			
 			PreparedStatement statement = connection.prepareStatement(query);
 			ResultSet rs = statement.executeQuery();
 			
-			while(rs.next())
-			{
+			while(rs.next()) {
 				Project project = new Project();
-				project.setId(rs.getInt("project_id")); // chỗ này nãy anh để là id .. làm gì có cột id nào .. anh phải để đúng cột nó mới match
-				project.setName(rs.getString("project_name")); // này cũng z 
+				project.setId(rs.getInt("project_id"));
+				project.setName(rs.getString("project_name"));
 				project.setDescription(rs.getString("project_description"));
-				/* project.setStart(rs.getDate("start_at")); */
-				project.setEnd(null);
-				project.setCreated(null);
+				project.setStart(LocalDate.parse(rs.getString("start_at")));
+				project.setEnd(LocalDate.parse(rs.getString("end_at")));
+				
+				User user = new User();
+				int id = rs.getInt("create_user");
+				
+				for (User usr : users) {
+					if (usr.getId() == id) {
+						user = usr;
+						break;
+					}
+				}
+				
+				project.setCreated(user);
 				
 				projects.add(project);
 			}
@@ -39,55 +57,132 @@ public class ProjectRepository {
 			System.out.println("Không thể kết nối đến cơ sở dữ liệu");
 			e.printStackTrace();
 		}
-		/*
-		 * finally { if (connection != null) try { connection.close(); } catch
-		 * (SQLException e) { e.printStackTrace(); } }
-		 * 
-		 * return projects;
-		 */
+		
 		return projects;
 	}
-	public int addProject(Project project)
-	{
+	
+	public Project getProjectById(String id) {
+		UserRepository userRepository = new UserRepository();
+		List<User> users = userRepository.getUsers();
+		
+		List<Project> projects = new LinkedList<Project>();
+		Connection connection = null;
+		
+		Project project = new Project();
+		
 		try {
-			Connection conn = MySQLConnection.getConnection();
-			String query = "INSERT crm_project (project_id, project_name, project_description) VALUES(?, ?, ?)";
+			connection = MySQLConnection.getConnection();
+			String query = "SELECT project_id, project_name, project_description, start_at, end_at, create_user "
+					+ "FROM crm_project "
+					+ "WHERE project_id = ?";
 			
-			PreparedStatement statement = conn.prepareStatement(query);
-			statement.setInt(1, project.getId());
-			statement.setString(2, project.getName());
-			statement.setString(3, project.getDescription());
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setInt(1, Integer.parseInt(id));
+			ResultSet rs = statement.executeQuery();
 			
-			//Chỗ này anh chưa biết set dữ liệu ngày tháng
-			/*statement.setDate(4, null, null);
-			statement.setDate(5, null, null);
-			statement.(6, project.getCreated());*/
+			
+			if (rs.next()) {
+				project.setId(rs.getInt("project_id"));
+				project.setName(rs.getString("project_name"));
+				project.setDescription(rs.getString("project_description"));
+				project.setStart(LocalDate.parse(rs.getString("start_at")));
+				project.setEnd(LocalDate.parse(rs.getString("end_at")));
+				
+				User user = new User();
+				int created = rs.getInt("create_user");
+				
+				for (User usr : users) {
+					if (usr.getId() == created) {
+						user = usr;
+						break;
+					}
+				}
+				
+				project.setCreated(user);
+				
+				return project;
+			}
+		} catch (SQLException e) {
+			System.out.println("Không thể kết nối đến cơ sở dữ liệu!");
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public int addProject(Project project) {
+		try {
+			Connection connection = MySQLConnection.getConnection();
+			String query = "INSERT INTO\r\n"
+					+ "	crm_project(project_name, project_description, start_at, end_at, create_user)\r\n"
+					+ "VALUES\r\n"
+					+ "	(?, ?, ?, ?, ?);";
+			
+			PreparedStatement statement = connection.prepareStatement(query);
+			
+			statement.setString(1, project.getName());
+			statement.setString(2, project.getDescription());
+			statement.setString(3, project.getStart().toString());
+			statement.setString(4, project.getEnd().toString());
+			statement.setInt(5, project.getCreated().getId());
 			
 			return statement.executeUpdate();
-		}catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			System.out.println("Không thể kết nối đến cơ sở dữ liệu");
 			e.printStackTrace();
 		}
 		return 0;
 	}
 	
-	public int removeProject(String projectId)
-	{
+	public int deleteProject(String id) {
 		try {
-			Connection conn = MySQLConnection.getConnection();
-			String query = "DELETE FROM crm_project WHERE project_id = ?";
+			Connection connection = MySQLConnection.getConnection();
 			
-			PreparedStatement statement = conn.prepareStatement(query);
+			String deleteQuery = "DELETE FROM crm_project WHERE project_id = ?";
+			String deleteTaskOfProjectQuery = "DELETE FROM crm_task WHERE task_project = ?";
+			String deleteProjectUsersQuery = "DELETE FROM crm_project_users WHERE project_id = ?";
 			
-			statement.setString(1, projectId);
+			PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery);
+			PreparedStatement deleteTaskOfProjectStatement = connection.prepareStatement(deleteTaskOfProjectQuery);
+			PreparedStatement deleteProjectUsersStatement = connection.prepareStatement(deleteProjectUsersQuery);
 			
-			return statement.executeUpdate();
-		}catch (SQLException e)
-		{
+			deleteStatement.setInt(1, Integer.parseInt(id));
+			deleteTaskOfProjectStatement.setInt(1, Integer.parseInt(id));
+			deleteProjectUsersStatement.setInt(1, Integer.parseInt(id));
+			
+			deleteTaskOfProjectStatement.executeUpdate();
+			deleteProjectUsersStatement.executeUpdate();
+			
+			return deleteStatement.executeUpdate();
+		} catch (SQLException e) {
 			System.out.println("Không thể kết nối đến cơ sở dữ liệu");
 			e.printStackTrace();
 		}
+		
+		return 0;
+	}
+	
+	public int updateProject(String id, Project newProject) {
+		try {
+			Connection connection = MySQLConnection.getConnection();
+			String query = "UPDATE crm_project"
+						+ " SET project_name = ?, project_description = ?, start_at = ?, end_at = ?, create_user = ?"
+						+ " WHERE project_id = ?";
+			
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setString(1, newProject.getName());
+			statement.setString(2, newProject.getDescription());
+			statement.setString(3, newProject.getStart().toString());
+			statement.setString(4, newProject.getEnd().toString());
+			statement.setInt(5, newProject.getCreated().getId());
+			statement.setString(6, id);
+			
+			return statement.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Không thể kết nối đến cơ sở dữ liệu");
+			e.printStackTrace();
+		}
+		
 		return 0;
 	}
 }

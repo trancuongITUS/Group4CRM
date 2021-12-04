@@ -15,32 +15,15 @@
                         <a class="nav-link active" href="/crm/home">
                             Home</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                            Project
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="project/project-manage">Manage</a>
-                            <a class="dropdown-item" href="project/project-create">Create</a>
-                            <a class="dropdown-item" href="project/project-assignment">Assignment</a>
-                            <a class="dropdown-item" href="project/project-statistics">Statistics</a>
-                        </div>
+                    
+                    <li class="nav-item">
+                    	<a href="/crm/project" class="nav-link">Project Management</a>
                     </li>
+                    
                     <li class="nav-item">
                     	<a href="/crm/user" class="nav-link">User Management</a>
                     </li>
-                    <!-- 
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                            User
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="user/user-list">List</a>
-                            <a class="dropdown-item" href="user/user-create">Create</a>
-                            <a class="dropdown-item" href="user/user-authorization">Authorization</a>
-                        </div>
-                    </li>
-                     -->
+                    
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                             Task

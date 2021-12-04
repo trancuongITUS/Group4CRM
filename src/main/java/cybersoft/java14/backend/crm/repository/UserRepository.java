@@ -19,13 +19,14 @@ public class UserRepository {
 		
 		try {
 			connection = MySQLConnection.getConnection();
-			String query = "SELECT user_name, user_role, email, phone, address, role_name, role_description "
+			String query = "SELECT user_id, user_name, user_role, email, phone, address, role_name, role_description "
 					+ "FROM crm_user JOIN crm_role ON user_role = role_id";
 			
 			PreparedStatement statement = connection.prepareStatement(query);
 			ResultSet rs = statement.executeQuery();
 			
 			while (rs.next()) {
+				int user_id = rs.getInt("user_id");
 				String name = rs.getString("user_name");
 				int role_id = rs.getInt("user_role");
 				String role_name = rs.getString("role_name");
@@ -36,6 +37,7 @@ public class UserRepository {
 				
 				User user = new User();
 				Role role = new Role(role_id, role_name, role_description);
+				user.setId(user_id);
 				user.setName(name);
 				user.setRole(role);
 				user.setEmail(email);
@@ -56,15 +58,17 @@ public class UserRepository {
 		
 		try {
 			Connection connection = MySQLConnection.getConnection();
-			String query = "SELECT user_name, user_role, email, phone, address, role_name, role_description "
-					+ "FROM crm_user JOIN crm_role ON user_role = role_id"
+			String query = "SELECT user_id, user_name, user_role, email, phone, address, role_name, role_description "
+					+ "FROM crm_user JOIN crm_role ON user_role = role_id "
 					+ "WHERE email = ?";
 			
 			PreparedStatement statement = connection.prepareStatement(query);
 			statement.setString(1, email);
 			ResultSet rs = statement.executeQuery();
 			
-			if (rs.first()) {
+			
+			if (rs.next()) {
+				int user_id = rs.getInt("user_id");
 				String name = rs.getString("user_name");
 				int role_id = rs.getInt("user_role");
 				String role_name = rs.getString("role_name");
@@ -73,6 +77,7 @@ public class UserRepository {
 				String address = rs.getString("address");
 				
 				Role role = new Role(role_id, role_name, role_description);
+				user.setId(user_id);
 				user.setName(name);
 				user.setRole(role);
 				user.setEmail(email);
@@ -89,12 +94,96 @@ public class UserRepository {
 		return null;
 	}
 	
+	
+	public List<User> getEmployees() {
+		List<User> users = new LinkedList<User>();
+		Connection connection = null;
+		
+		try {
+			connection = MySQLConnection.getConnection();
+			String query = "SELECT user_id, user_name, user_role, email, phone, address, role_name, role_description "
+					+ "FROM crm_user JOIN crm_role ON user_role = role_id "
+					+ "WHERE role_id = 3";
+			
+			PreparedStatement statement = connection.prepareStatement(query);
+			ResultSet rs = statement.executeQuery();
+			
+			while (rs.next()) {
+				int user_id = rs.getInt("user_id");
+				String name = rs.getString("user_name");
+				int role_id = rs.getInt("user_role");
+				String role_name = rs.getString("role_name");
+				String role_description = rs.getString("role_description");
+				String email = rs.getString("email");
+				String phone = rs.getString("phone");
+				String address = rs.getString("address");
+				
+				User user = new User();
+				Role role = new Role(role_id, role_name, role_description);
+				user.setId(user_id);
+				user.setName(name);
+				user.setRole(role);
+				user.setEmail(email);
+				user.setPhone(phone);
+				user.setAddress(address);
+				users.add(user);
+			}
+		} catch (SQLException e) {
+			System.out.println("Không thể kết nối đến cơ sở dữ liệu!");
+			e.printStackTrace();
+		}
+		
+		return users;
+	}
+	
+	public List<User> getUsersNotEmployees() {
+		List<User> users = new LinkedList<User>();
+		Connection connection = null;
+		
+		try {
+			connection = MySQLConnection.getConnection();
+			String query = "SELECT user_id, user_name, user_role, email, phone, address, role_name, role_description "
+					+ "FROM crm_user JOIN crm_role ON user_role = role_id "
+					+ "WHERE role_id != 3";
+			
+			PreparedStatement statement = connection.prepareStatement(query);
+			ResultSet rs = statement.executeQuery();
+			
+			while (rs.next()) {
+				int user_id = rs.getInt("user_id");
+				String name = rs.getString("user_name");
+				int role_id = rs.getInt("user_role");
+				String role_name = rs.getString("role_name");
+				String role_description = rs.getString("role_description");
+				String email = rs.getString("email");
+				String phone = rs.getString("phone");
+				String address = rs.getString("address");
+				
+				User user = new User();
+				Role role = new Role(role_id, role_name, role_description);
+				user.setId(user_id);
+				user.setName(name);
+				user.setRole(role);
+				user.setEmail(email);
+				user.setPhone(phone);
+				user.setAddress(address);
+				users.add(user);
+			}
+		} catch (SQLException e) {
+			System.out.println("Không thể kết nối đến cơ sở dữ liệu!");
+			e.printStackTrace();
+		}
+		
+		return users;
+	}
+	
+	
 	public int addUser(User user) {
 		try {
 			Connection connection = MySQLConnection.getConnection();
-			String query = "insert into\r\n"
+			String query = "INSERT INTO\r\n"
 					+ "	crm_user(user_role, user_name, email, usr_password, phone, address)\r\n"
-					+ "values\r\n"
+					+ "VALUES\r\n"
 					+ "	(?, ?, ?, ?, ?, ?);";
 			
 			PreparedStatement statement = connection.prepareStatement(query);
@@ -124,17 +213,21 @@ public class UserRepository {
 			String deleteQuery = "DELETE FROM crm_user WHERE email = ?";
 			String updateProjectQuery = "UPDATE crm_project SET create_user = null WHERE create_user = ?";
 			String updateTaskQuery = "UPDATE crm_task SET assignee = null WHERE assignee = ?";
+			String deleteProjectUsersQuery = "DELETE FROM crm_project_users WHERE user_id = ?";
 			
 			PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery);
 			PreparedStatement updateProjectStatement = connection.prepareStatement(updateProjectQuery);
 			PreparedStatement updateTaskStatement = connection.prepareStatement(updateTaskQuery);
+			PreparedStatement deleteProjectUsersStatement = connection.prepareStatement(deleteProjectUsersQuery);
 			
+			deleteStatement.setString(1, email);
 			updateProjectStatement.setInt(1, user.getId());
 			updateTaskStatement.setInt(1, user.getId());
-			deleteStatement.setString(1, email);
+			deleteProjectUsersStatement.setInt(1, user.getId());
 			
 			updateProjectStatement.executeUpdate();
 			updateTaskStatement.executeUpdate();
+			deleteProjectUsersStatement.executeUpdate();
 			
 			return deleteStatement.executeUpdate();
 		} catch (SQLException e) {

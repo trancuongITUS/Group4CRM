@@ -8,13 +8,13 @@
 			<div>
 			    <nav aria-label="breadcrumb">
 			        <ol class="breadcrumb mb-0">
-			            <li class="breadcrumb-item"><a href="#">User</a></li>
+			            <li class="breadcrumb-item"><a href="#">Project</a></li>
 			            <li class="breadcrumb-item active" aria-current="page">
-			                User Authorization
+			                Project Edit
 			            </li>
 			        </ol>
 			    </nav>
-			    <h1 class="m-0">User Authorization</h1>
+			    <h1 class="m-0">Project Edit</h1>
 			</div>
 	        <div class="ml-auto">
 	            <a href="" class="btn btn-light"><i class="material-icons icon-16pt text-muted mr-1">settings</i>
@@ -33,12 +33,12 @@
 	                <div class="avatar avatar-xs mr-2">
 	                    <span class="avatar-title rounded-circle text-center bg-primary">
 	                        <i class="material-icons text-white icon-18pt">
-	                        person_add
+	                        add_alert
 	                        </i>
 	                    </span>
 	                </div>
-	                <a href="/crm/user" class="text-dark">
-	                    <strong>User List</strong>
+	                <a href="/crm/project/project-create" class="text-dark">
+	                    <strong>Create New Project</strong>
 	                </a>
 	            </div>
 	        </div>
@@ -48,34 +48,35 @@
 	<!-- Page Content -->
 	<form action="" method="post">
 	    <div class="form-group">
-	        <label for="full_name">Full name:</label>
-	        <input value="${ user.name }" name="user_name" class="form-control" type="text" id="full_name" required="" placeholder="Trần Cường">
+	        <label for="project_name">Name:</label>
+	        <input value="${ project.name }" name="project_name" class="form-control" type="text" id="project_name" required="" placeholder="CRM">
 	    </div>
 	    
 	    <div class="form-group">
-           <label for="role_select">Role</label>
-           <select name="user_role" id="role_select" data-toggle="select" class="form-control">
-           		<c:forEach var="role" items="${ roles }">
-           			<option <c:if test="${ user.role.name == role.name }">selected=""</c:if>>${ role.name }</option>
-               	</c:forEach>
-           </select>
+	        <label for="project_description">Description:</label>
+	        <input value="${ project.description }" name="project_description" class="form-control" type="text" id="project_description" required="" placeholder="CRM Appication using Servlet Java14">
+	    </div>
+	    
+	    
+	    <div class="form-group">
+	        <label for="start_at">Start at:</label>
+	        <input value="${ project.start }" name="start_at" id="start_at" type="text" class="form-control" placeholder="Flatpickr example" data-toggle="flatpickr" value="today">
 	    </div>
 	      	
 	    <div class="form-group">
-	        <label for="email">Email:</label>
-	        <input value="${ user.email }" name="user_email" class="form-control" type="email" id="email" required="" placeholder="ktc1311@gmail.com">
+            <label for="end_at">End at:</label>
+            <input value="${ project.end }" name="end_at" id="end_at" type="text" class="form-control" placeholder="Flatpickr example" data-toggle="flatpickr" value="today">
 	    </div>
+	    
+	    <div class="form-group">
+			<label for="created">Created by:</label>
+			<select name="created" id="created" data-toggle="select" class="form-control">
+				<c:forEach var="user" items="${ users }">
+					<option value="${ user.id }" <c:if test="${ project.created.email == user.email }">selected=""</c:if>>${ user.name } - ${ user.role.name }</option>
+				</c:forEach>
+		    </select>
+		</div>
 	      	
-	    <div class="form-group">
-	        <label for="phone">Phone:</label>
-	        <input value="${ user.phone }" name="user_phone" class="form-control" type="text" id="phone" required="" placeholder="0xxxxxxxxx">
-	    </div>
-	    
-	    <div class="form-group">
-	        <label for="address">Address:</label>
-	        <input value="${ user.address }" name="user_address" class="form-control" type="text" id="address" required="" placeholder="Quảng Ngãi">
-	    </div>
-	    
 	    <div class="form-group text-center">
 	        <button class="btn btn-primary" type="submit">Update</button>
 	    </div>

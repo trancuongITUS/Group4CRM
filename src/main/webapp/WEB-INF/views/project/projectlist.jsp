@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="cybersoft.java14.backend.crm.util.UrlConst" %>
 
 <div class="container page__heading-container">
 	<div class="page__heading">
@@ -8,13 +9,13 @@
 			<div>
 			    <nav aria-label="breadcrumb">
 			        <ol class="breadcrumb mb-0">
-			            <li class="breadcrumb-item"><a href="/crm/user">User</a></li>
+			            <li class="breadcrumb-item"><a href="#">Project</a></li>
 			            <li class="breadcrumb-item active" aria-current="page">
-			                User List
+			                Project List
 			            </li>
 			        </ol>
 			    </nav>
-			    <h1 class="m-0">User List</h1>
+			    <h1 class="m-0">Project List</h1>
 			</div>
 	        <div class="ml-auto">
 	            <a href="" class="btn btn-light"><i class="material-icons icon-16pt text-muted mr-1">settings</i>
@@ -33,12 +34,12 @@
 	                <div class="avatar avatar-xs mr-2">
 	                    <span class="avatar-title rounded-circle text-center bg-primary">
 	                        <i class="material-icons text-white icon-18pt">
-	                        person_add
+	                        add_alert
 	                        </i>
 	                    </span>
 	                </div>
-	                <a href="#" class="text-dark" data-toggle="modal" data-target="#modal-create-user" >
-	                    <strong>Create New User</strong>
+	                <a href="/crm/project/project-create" class="text-dark">
+	                    <strong>Create New Project</strong>
 	                </a>
 	            </div>
 	        </div>
@@ -54,7 +55,7 @@
 	                    </span>
 	                </div>
 	                <button type="submit" class="btn btn-light text-dark border border-light" form="delete-form">
-	                	<strong>Delete User</strong>
+	                	<strong>Delete Project</strong>
 	                </button>
 	            </div>
 	        </div>
@@ -66,11 +67,11 @@
 	        <div class="card-form__body">
 	            <div class="table-responsive border-bottom" data-toggle="lists"
 	                data-lists-values='["js-lists-values-employee-name"]'>
-					 <form action="/crm/user/user-delete" method="post" id="delete-form">
+					 <form action="/crm/project/project-delete" method="post" id="delete-form">
 						<table class="table mb-0 thead-border-top-0">
 		                    <thead>
 		                        <tr>
-		                            <th style="width: 12px;">
+		                            <th style="width: 8px;">
 		                                <div class="custom-control custom-checkbox">
 		                                    <input type="checkbox"
 		                                        class="custom-control-input js-toggle-check-all"
@@ -80,47 +81,40 @@
 		                                </div>
 		                            </th>
 		
-		                            <th style="width: 200px;">Employee</th>
-		                            <th style="width: 37px;">Role</th>
-		                            <th style="width: 200px;">Email</th>
-		                            <th style="width: 120px;">Phone</th>
-		                            <th style="width: 180px;">Address</th>
-		                            <th style="width: 100px;" scope="row">#</th>
+		                            <th style="width: 160px;">Name</th>
+		                            <th style="width: 300px;">Description</th>
+		                            <th style="width: 140px;">Start</th>
+		                            <th style="width: 140px;">End</th>
+		                            <th style="width: 160px;">Create by</th>
+		                            <th style="width: 80px;" scope="row">#</th>
 		                        </tr>
 		                    </thead>
 		                    <tbody class="list" id="staff">
-		                    	<c:forEach var="user" items="${ users }">
+		                    	<c:forEach var="project" items="${ projects }">
 			                    	<tr>
-			                            <td>
-		                                       <div class="custom-control custom-checkbox">
-		                                           <input name="chkSelected" value="${ user.email }" type="checkbox"
-		                                               class="custom-control-input js-check-selected-row"
-		                                               id="${ user.email }">
-		                                           <label class="custom-control-label" for="${ user.email }"><span
-		                                                   class="text-hide">Check</span></label>
-		                                       </div>
-		                                   </td>
+										<td>
+											<div class="custom-control custom-checkbox">
+												<input name="chkSelected" value="${ project.id }" type="checkbox"
+												class="custom-control-input js-check-selected-row"
+												id="${ project.id }">
+												<label class="custom-control-label" for="${ project.id }"><span
+												            class="text-hide">Check</span></label>
+											</div>
+										</td>
 			
 			                            <td>
 			                                <div class="media align-items-center">
 			                                    <div class="media-body">
-			                                        <span class="js-lists-values-employee-name">${ user.name }</span>
+			                                        <span class="js-lists-values-employee-name">${ project.name }</span>
 			                                    </div>
 			                                </div>
 			                            </td>
+			                            <td><small class="text-muted">${ project.description }</small></td>
+			                            <td>${ project.start }</td>
+			                            <td>${ project.end }</td>
+			                            <td>${ project.created.name }</td>
 			                            <td>
-			                            	<c:choose>
-			                            		<c:when test="${ user.role.id == 1}"><span class="badge badge-warning" style="text-transform: uppercase;">${ user.role.name }</span></c:when>
-			                            		<c:when test="${ user.role.id == 2}"><span class="badge badge-primary" style="text-transform: uppercase;">${ user.role.name }</span></c:when>
-			                            		<c:otherwise><span class="badge badge-success" style="text-transform: uppercase;">${ user.role.name }</span></c:otherwise>
-			                            	</c:choose>
-			                            	
-			                            </td>
-			                            <td><small class="text-muted">${ user.email }</small></td>
-			                            <td>${ user.phone }</td>
-			                            <td>${ user.address }</td>
-			                            <td>
-			                            	<a href="user/user-authorization?email=${ user.email }" class="btn btn-light text-dark">EDIT</a>	
+			                            	<a href="project/project-edit?id=${ project.id }" class="btn btn-light text-dark">EDIT</a>	
 			                            </td>
 			                        </tr>
 		                        </c:forEach>
@@ -130,5 +124,5 @@
 	            </div>
 	        </div>
 	    </div>
-	</div>
-</div>
+	</div> <!-- href="project/project-edit?id=${ project.id }" -->
+</div> <!-- href="user/user-authorization?email=${ user.email }" -->
