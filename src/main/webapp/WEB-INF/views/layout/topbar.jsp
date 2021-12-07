@@ -1,3 +1,4 @@
+<%@page import="cybersoft.java14.backend.crm.model.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -139,7 +140,7 @@
                                 Edit account
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href='<c:url value="login" />'>Logout</a>
+                            <a class="dropdown-item" href="/crm/login">Logout</a>
                         </div>
                     </li>
                 </ul>

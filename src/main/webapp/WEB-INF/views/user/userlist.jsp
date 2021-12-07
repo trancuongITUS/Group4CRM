@@ -70,7 +70,7 @@
 						<table class="table mb-0 thead-border-top-0">
 		                    <thead>
 		                        <tr>
-		                            <th style="width: 18px;">
+		                            <th style="width: 12px;">
 		                                <div class="custom-control custom-checkbox">
 		                                    <input type="checkbox"
 		                                        class="custom-control-input js-toggle-check-all"
@@ -120,7 +120,7 @@
 			                            <td>${ user.phone }</td>
 			                            <td>${ user.address }</td>
 			                            <td>
-			                            	<a href="user/user-authorization?email=${ user.email }" class="btn btn-light text-dark">EDIT</a>	
+			                            	<a href="/crm/user/user-edit?email=${ user.email }" class="text-primary">Edit</a>	
 			                            </td>
 			                        </tr>
 		                        </c:forEach>
