@@ -86,7 +86,8 @@
 		                            <th style="width: 140px;">Start</th>
 		                            <th style="width: 140px;">End</th>
 		                            <th style="width: 160px;">Create by</th>
-		                            <th style="width: 80px;" scope="row">#</th>
+		                            <th style="width: 40px;">#</th>
+		                            <th style="width: 40px;">#</th>
 		                        </tr>
 		                    </thead>
 		                    <tbody class="list" id="staff">
@@ -114,7 +115,10 @@
 			                            <td>${ project.end }</td>
 			                            <td>${ project.created.name }</td>
 			                            <td>
-			                            	<a href="project/project-edit?id=${ project.id }" class="btn btn-light text-dark">EDIT</a>	
+			                            	<a href="/crm/project/project-edit?id=${ project.id }" class="text-primary">Edit</a>	
+			                            </td>
+			                            <td>
+			                            	<a href="/crm/project/project-detail?id=${ project.id }" class="text-primary">Detail</a>	
 			                            </td>
 			                        </tr>
 		                        </c:forEach>

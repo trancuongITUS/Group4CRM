@@ -25,6 +25,29 @@ public class UserService {
 		return repository.getUsersNotEmployees();
 	}
 	
+	public List<User> getEmployeesFromProject(String projectId) {
+		if (projectId == null || "".equals(projectId)) {
+			return null;
+		}
+		
+		if (users == null || users.isEmpty()) {
+			return null;
+		}
+		
+		return repository.getEmployeesFromProject(projectId);
+	}
+	
+	public List<User> getEmployeesNotInProject(String projectId) {
+		if (projectId == null || "".equals(projectId)) {
+			return null;
+		}
+		
+		if (users == null || users.isEmpty()) {
+			return null;
+		}
+		
+		return repository.getEmployeesNotInProject(projectId);
+	}
 	
 	public User getUserByEmail(String email) {
 		if (email == null || "".equals(email)) {

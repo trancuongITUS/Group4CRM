@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cybersoft.java14.backend.crm.model.User;
 import cybersoft.java14.backend.crm.util.UrlConst;
 
 @WebServlet(name = "homeServlet", urlPatterns = UrlConst.HOME)

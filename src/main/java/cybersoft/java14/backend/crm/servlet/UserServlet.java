@@ -15,10 +15,10 @@ import cybersoft.java14.backend.crm.util.JspConst;
 import cybersoft.java14.backend.crm.util.UrlConst;
 
 @WebServlet(name = "userServlet", urlPatterns = {
-		UrlConst.USER,
+		UrlConst.USER_LIST,
 		UrlConst.USER_DELETE,
 		UrlConst.USER_CREATE,
-		UrlConst.USER_AUTHOR
+		UrlConst.USER_EDIT
 })
 public class UserServlet extends HttpServlet {
 	UserService userService;
@@ -36,12 +36,12 @@ public class UserServlet extends HttpServlet {
 		String servletPath = req.getServletPath();
 		
 		switch (servletPath) {
-		case UrlConst.USER:
+		case UrlConst.USER_LIST:
 			req.setAttribute("roles", roleService.getRoles());
 			req.setAttribute("users", userService.getUsers());
 			req.getRequestDispatcher(JspConst.USER_LIST).forward(req, resp);
 			break;
-		case UrlConst.USER_AUTHOR:
+		case UrlConst.USER_EDIT:
 			String email = req.getParameter("email");
 			req.setAttribute("user", userService.getUserByEmail(email));
 			req.setAttribute("roles", roleService.getRoles());
@@ -82,7 +82,7 @@ public class UserServlet extends HttpServlet {
 			System.out.println(countRows + " rows has been deleted!");
 			break;
 			
-		case UrlConst.USER_AUTHOR:
+		case UrlConst.USER_EDIT:
 			User newUser = new User();
 			String email = req.getParameter("email");
 			newUser.setName(req.getParameter("user_name"));
@@ -108,6 +108,6 @@ public class UserServlet extends HttpServlet {
 			break;
 		}
 		
-		resp.sendRedirect(req.getContextPath() + UrlConst.USER);
+		resp.sendRedirect(req.getContextPath() + UrlConst.USER_LIST);
 	}
 }

@@ -17,22 +17,17 @@
                     </li>
                     
                     <li class="nav-item">
-                    	<a href="/crm/project" class="nav-link">Project Management</a>
+                    	<a href="/crm/project/project-list" class="nav-link">Project Management</a>
                     </li>
                     
                     <li class="nav-item">
-                    	<a href="/crm/user" class="nav-link">User Management</a>
+                    	<a href="/crm/user/user-list" class="nav-link">User Management</a>
                     </li>
                     
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                            Task
+                    <li class="nav-item">
+                        <a href="/crm/task/task-list" class="nav-link">
+                            Task Management
                         </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="task/task-list">List</a>
-                            <a class="dropdown-item" href="task/task-progress">Progress</a>
-                            <a class="dropdown-item" href="task/task-statistics">Statistics</a>
-                        </div>
                     </li>
                 </ul>
             </div>
