@@ -43,3 +43,8 @@
 
 <!-- Global Settings -->
 <script src='<c:url value="/assets/js/settings.js" />'></script>
+
+<!-- DateRangePicker -->
+ <script src='<c:url value="/assets/vendor/moment.min.js" />'></script>
+ <script src='<c:url value="/assets/vendor/daterangepicker.js"/>'></script>
+ <script src='<c:url value="/assets/js/daterangepicker.js"/>'></script>

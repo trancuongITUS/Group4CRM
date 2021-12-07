@@ -12,39 +12,22 @@
             <div class="navbar-collapse collapse" id="navbarsExample03">
                 <ul class="nav navbar-nav flex">
                     <li class="nav-item">
-                        <a class="nav-link active" href='<c:url value="home" />'>
+                        <a class="nav-link active" href="/crm/home">
                             Home</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                            Project
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="project/project-manage">Manage</a>
-                            <a class="dropdown-item" href="project/project-create">Create</a>
-                            <a class="dropdown-item" href="project/project-assignment">Assignment</a>
-                            <a class="dropdown-item" href="project/project-statistics">Statistics</a>
-                        </div>
+                    
+                    <li class="nav-item">
+                    	<a href="/crm/project/project-list" class="nav-link">Project Management</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                            User
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="user/user-list">List</a>
-                            <a class="dropdown-item" href="user/user-create">Create</a>
-                            <a class="dropdown-item" href="user/user-authorization">Authorization</a>
-                        </div>
+                    
+                    <li class="nav-item">
+                    	<a href="/crm/user/user-list" class="nav-link">User Management</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                            Task
+                    
+                    <li class="nav-item">
+                        <a href="/crm/task/task-list" class="nav-link">
+                            Task Management
                         </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="task/task-list">List</a>
-                            <a class="dropdown-item" href="task/task-progress">Progress</a>
-                            <a class="dropdown-item" href="task/task-statistics">Statistics</a>
-                        </div>
                     </li>
                 </ul>
             </div>

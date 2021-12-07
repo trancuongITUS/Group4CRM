@@ -89,7 +89,7 @@ public class Project {
 			return false;
 		
 		Project other = (Project) obj;
-		return other.name.equals(this.name) && other.created.equals(this.created);
+		return other.name.equals(this.name);
 	}
 	
 	

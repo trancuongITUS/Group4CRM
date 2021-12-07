@@ -9,10 +9,8 @@ import cybersoft.java14.backend.crm.util.UrlConst;
 @WebFilter(filterName = "sitemesh", urlPatterns = {
 		UrlConst.HOME,
 		UrlConst.PROFILE,
-		UrlConst.PROJECT,
-		UrlConst.PROJECT + "/*",
-		UrlConst.USER,
-		UrlConst.USER + "/*",
+		UrlConst.PROJECT_ROOT,
+		UrlConst.USER_ROOT,
 		UrlConst.TASK,
 		UrlConst.TASK + "/*"
 })

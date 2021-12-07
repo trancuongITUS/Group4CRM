@@ -8,13 +8,13 @@
 			<div>
 			    <nav aria-label="breadcrumb">
 			        <ol class="breadcrumb mb-0">
-			            <li class="breadcrumb-item"><a href="#">Project</a></li>
+			            <li class="breadcrumb-item"><a href="#">Task</a></li>
 			            <li class="breadcrumb-item active" aria-current="page">
-			                Project Create
+			                Task Create
 			            </li>
 			        </ol>
 			    </nav>
-			    <h1 class="m-0">Project Create</h1>
+			    <h1 class="m-0">Task Create</h1>
 			</div>
 	        <div class="ml-auto">
 	            <a href="" class="btn btn-light"><i class="material-icons icon-16pt text-muted mr-1">settings</i>
@@ -37,8 +37,8 @@
 	                        </i>
 	                    </span>
 	                </div>
-	                <a href="/crm/project" class="text-dark">
-	                    <strong>User List</strong>
+	                <a href="/crm/task/task-list" class="text-dark">
+	                    <strong>Task List</strong>
 	                </a>
 	            </div>
 	        </div>
@@ -46,15 +46,15 @@
 	</div>
 	
 	<!-- Page Content -->
-	<form action="/crm/project/project-create" method="post">
+	<form action="/crm/task/task-create" method="post">
 	    <div class="form-group">
-	        <label for="project_name">Name:</label>
-	        <input name="project_name" class="form-control" type="text" id="project_name" required="" placeholder="CRM">
+	        <label for="task_name">Name:</label>
+	        <input name="task_name" class="form-control" type="text" id="task_name" required="" placeholder="CRM">
 	    </div>
 	    
 	    <div class="form-group">
-	        <label for="project_description">Description:</label>
-	        <input name="project_description" class="form-control" type="text" id="project_description" required="" placeholder="CRM Appication using Servlet Java14">
+	        <label for="task_description">Description:</label>
+	        <input name="task_description" class="form-control" type="text" id="task_description" required="" placeholder="CRM Appication using Servlet Java14">
 	    </div>
 	    
 	    
@@ -69,14 +69,32 @@
 	    </div>
 	    
 	    <div class="form-group">
-			<label for="created">Created by:</label>
-			<select name="created" id="created" data-toggle="select" class="form-control">
-				<c:forEach var="user" items="${ users }">
-					<option value="${ user.id }">${ user.name } - ${ user.role.name }</option>
+			<label for="assignee">Assignee:</label>
+			<select name="assignee" id="assignee" data-toggle="select" class="form-control">
+				<c:forEach var="employee" items="${ employees }">
+					<option value="${ employee.email }">${ employee.name }</option>
 				</c:forEach>
 		    </select>
 		</div>
-	      	
+	    
+	    <div class="form-group">
+			<label for="project">Project:</label>
+			<select name="project" id="project" data-toggle="select" class="form-control">
+				<c:forEach var="project" items="${ projects }">
+					<option value="${ project.id }">${ project.name }</option>
+				</c:forEach>
+		    </select>
+		</div>
+	    
+	    <div class="form-group">
+			<label for="status">Status:</label>
+			<select name="status" id="status" data-toggle="select" class="form-control">
+				<c:forEach var="stt" items="${ status }">
+					<option value="${ stt.id }">${ stt.name }</option>
+				</c:forEach>
+		    </select>
+		</div>
+	    
 	    <div class="form-group text-center">
 	        <button class="btn btn-primary" type="submit">Create</button>
 	    </div>

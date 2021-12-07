@@ -10,11 +10,11 @@
 			        <ol class="breadcrumb mb-0">
 			            <li class="breadcrumb-item"><a href="#">Project</a></li>
 			            <li class="breadcrumb-item active" aria-current="page">
-			                Project Create
+			                Project Employee
 			            </li>
 			        </ol>
 			    </nav>
-			    <h1 class="m-0">Project Create</h1>
+			    <h1 class="m-0">${ project.name }</h1>
 			</div>
 	        <div class="ml-auto">
 	            <a href="" class="btn btn-light"><i class="material-icons icon-16pt text-muted mr-1">settings</i>
@@ -26,35 +26,16 @@
 </div>
 
 <div class="container page__container">
-	<div class="row card-group-row">
-	    <div class="col-lg-3 col-md-4 card-group-row__col">
-	        <div class="card card-group-row__card card-shadow">
-	            <div class="p-2 d-flex flex-row align-items-center">
-	                <div class="avatar avatar-xs mr-2">
-	                    <span class="avatar-title rounded-circle text-center bg-primary">
-	                        <i class="material-icons text-white icon-18pt">
-	                        add_alert
-	                        </i>
-	                    </span>
-	                </div>
-	                <a href="/crm/project" class="text-dark">
-	                    <strong>User List</strong>
-	                </a>
-	            </div>
-	        </div>
-	    </div>
-	</div>
-	
 	<!-- Page Content -->
-	<form action="/crm/project/project-create" method="post">
+	<form action="/crm/project/project-detail/project-tasks/create?project_id=${ project.id }" method="post">
 	    <div class="form-group">
-	        <label for="project_name">Name:</label>
-	        <input name="project_name" class="form-control" type="text" id="project_name" required="" placeholder="CRM">
+	        <label for="task_name">Name:</label>
+	        <input name="task_name" class="form-control" type="text" id="task_name" required="" placeholder="CRUD">
 	    </div>
 	    
 	    <div class="form-group">
-	        <label for="project_description">Description:</label>
-	        <input name="project_description" class="form-control" type="text" id="project_description" required="" placeholder="CRM Appication using Servlet Java14">
+	        <label for="task_description">Description:</label>
+	        <input name="task_description" class="form-control" type="text" id="task_description" required="" placeholder="CRUD for Application">
 	    </div>
 	    
 	    
@@ -69,10 +50,19 @@
 	    </div>
 	    
 	    <div class="form-group">
-			<label for="created">Created by:</label>
-			<select name="created" id="created" data-toggle="select" class="form-control">
-				<c:forEach var="user" items="${ users }">
-					<option value="${ user.id }">${ user.name } - ${ user.role.name }</option>
+			<label for="assignee">Assignee:</label>
+			<select name="assignee" id="assignee" data-toggle="select" class="form-control">
+				<c:forEach var="employee" items="${ employees }">
+					<option value="${ employee.email }">${ employee.name }</option>
+				</c:forEach>
+		    </select>
+		</div>
+	    
+	    <div class="form-group">
+			<label for="status">Status:</label>
+			<select name="status" id="status" data-toggle="select" class="form-control">
+				<c:forEach var="stt" items="${ status }">
+					<option value="${ stt.id }">${ stt.name }</option>
 				</c:forEach>
 		    </select>
 		</div>

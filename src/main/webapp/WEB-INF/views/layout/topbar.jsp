@@ -1,3 +1,4 @@
+<%@page import="cybersoft.java14.backend.crm.model.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -15,7 +16,7 @@
                 </button>
 
                 <!-- Navbar Brand -->
-                <a href='<c:url value="home" />' class="navbar-brand">
+                <a href="/crm/home" class="navbar-brand">
                     <img class="navbar-brand-icon" src='<c:url value="/assets/images/logo.png" />' height="50" alt="Cybersoft" />
                 </a>
 
@@ -139,7 +140,7 @@
                                 Edit account
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href='<c:url value="login" />'>Logout</a>
+                            <a class="dropdown-item" href="/crm/login">Logout</a>
                         </div>
                     </li>
                 </ul>
