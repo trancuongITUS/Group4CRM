@@ -30,6 +30,18 @@ public class ProjectService {
 		return repository.getProjectById(id);
 	}
 	
+	public List<Project> getProjectsByCreatedUser(String user_id) {
+		if (user_id == null || "".equals(user_id)) {
+			return null;
+		}
+		
+		if (projects == null || projects.isEmpty()) {
+			return null;
+		}
+		
+		return repository.getProjectsByCreatedUser(user_id);
+	}
+	
 	public boolean addProject(Project project) {
 		if (project == null) {
 			return false;
@@ -41,7 +53,37 @@ public class ProjectService {
 		
 		return repository.addProject(project) == 1 ? true : false;
 	}
-
+	
+	public boolean addEmployeeToProject(String projectId, String empId) {
+		return repository.addEmployeeToProject(projectId, empId) == 1 ? true : false;
+	}
+	
+	public boolean deleteEmployeeFromProject(String projectId, String empsId) {
+		if (projectId == null || empsId == null) {
+			return false;
+		}
+		
+		return repository.deleteEmployeeFromProject(projectId, empsId) == 1 ? true : false;
+	}
+	
+	public int deleteEmployeeFromProject(String projectId, String[] empsId) {
+		if (projectId == null || empsId == null) {
+			return 0;
+		}
+		
+		int count = 0;
+		
+		for (String id : empsId) {
+			if (deleteEmployeeFromProject(projectId, id) == false) {
+				break;
+			}
+			
+			count++;
+		}
+		
+		return count;
+	}
+	
 	public boolean deleteProject(String id) {
 		if (id == null) {
 			return false;

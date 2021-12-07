@@ -2,6 +2,7 @@ package cybersoft.java14.backend.crm.servlet;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,15 +15,16 @@ import cybersoft.java14.backend.crm.model.User;
 import cybersoft.java14.backend.crm.service.ProjectService;
 import cybersoft.java14.backend.crm.service.UserService;
 import cybersoft.java14.backend.crm.util.JspConst;
+import cybersoft.java14.backend.crm.util.RollConst;
 import cybersoft.java14.backend.crm.util.UrlConst;
 
 @WebServlet(name = "projectServlet", urlPatterns = {
-		UrlConst.PROJECT,
+		UrlConst.PROJECT_LIST,
 		UrlConst.PROJECT_ASSIGNMENT,
 		UrlConst.PROJECT_CREATE,
 		UrlConst.PROJECT_STATISTICS,
 		UrlConst.PROJECT_DELETE,
-		UrlConst.PROJECT_EDIT
+		UrlConst.PROJECT_EDIT,
 })
 public class ProjectServlet extends HttpServlet {
 	ProjectService projectService;
@@ -39,9 +41,23 @@ public class ProjectServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String servletPath = req.getServletPath();
 		
+		User user = (User) req.getSession().getAttribute("user");
+		String rollName = user.getRole().getName();
+		List<Project> projects = null;
+		
+		switch (rollName) {
+		case RollConst.ADMIN:
+			projects = projectService.getProjects();
+			break;
+		case RollConst.LEADER:
+			projects = projectService.getProjectsByCreatedUser(String.valueOf(user.getId()));
+		default:
+			break;
+		}
+		
 		switch (servletPath) {
-		case UrlConst.PROJECT:
-			req.setAttribute("projects", projectService.getProjects());
+		case UrlConst.PROJECT_LIST:
+			req.setAttribute("projects", projects);
 			req.getRequestDispatcher(JspConst.PROJECT_LIST).forward(req, resp);
 			break;
 		case UrlConst.PROJECT_CREATE:
@@ -49,8 +65,8 @@ public class ProjectServlet extends HttpServlet {
 			req.getRequestDispatcher(JspConst.PROJECT_CREATE).forward(req, resp);
 			break;
 		case UrlConst.PROJECT_EDIT:
-			String id = req.getParameter("id");
-			req.setAttribute("project", projectService.getProjectById(id));
+			String idEdit = req.getParameter("id");
+			req.setAttribute("project", projectService.getProjectById(idEdit));
 			req.setAttribute("users", userService.getUsersNotEmployees());
 			req.getRequestDispatcher(JspConst.PROJECT_EDIT).forward(req, resp);
 			break;
@@ -111,9 +127,14 @@ public class ProjectServlet extends HttpServlet {
 			} else {
 				System.out.println("Error!");
 			}
+		
+		
+			
+			break;
 		default:
 			break;
 		}
 		
-		resp.sendRedirect(req.getContextPath() + UrlConst.PROJECT);	}
+		resp.sendRedirect(req.getContextPath() + UrlConst.PROJECT_LIST);
+	}
 }

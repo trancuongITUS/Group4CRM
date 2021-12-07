@@ -87,5 +87,86 @@
 		    <!-- // END .modal-dialog -->
 		</div>
 		<!-- // END .modal -->
+		
+		<div id="modal-add-employee" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+		        <div class="modal-dialog modal-dialog-centered">
+		            <div class="modal-content">
+		                <div class="modal-body">
+		                    <div class="px-3">
+		                        <div class="d-flex justify-content-center mt-2 mb-4 navbar-light">
+		                            <a href="home" class="navbar-brand" style="min-width: 0">
+		                            <img class="navbar-brand-icon" src="/crm/assets/images/logo.png" width="250" alt="Cybersoft">
+		                        </a>
+		                    </div>
+		
+		                    <form action="/crm/project/project-detail/project-employees/add?project_id=${ project.id }" method="post">
+		                        <div class="form-group">
+	                                <label for="emps">Employee</label>
+	                                <select name="emps" id="emps" data-toggle="select" class="form-control">
+	                                	<c:forEach var="emp" items="${ employeesNotInProject }">
+	                                		<option value="${ emp.id }">${ emp.name }</option>
+	                                    </c:forEach>
+	                                </select>
+                            	</div>
+                            	
+		                        
+		                        <div class="form-group text-center">
+		                            <button class="btn btn-primary" type="submit">Add</button>
+		                        </div>
+		                    </form>
+		                </div>
+		            </div>
+		            <!-- // END .modal-body -->
+		        </div>
+		        <!-- // END .modal-content -->
+		    </div>
+		    <!-- // END .modal-dialog -->
+		</div>
+		<!-- // END .modal -->
+		
+		<div id="modal-task-status" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+		        <div class="modal-dialog modal-dialog-centered">
+		            <div class="modal-content">
+		                <div class="modal-body">
+		                    <div class="px-3">
+		                        <div class="d-flex justify-content-center mt-2 mb-4 navbar-light">
+		                            <a href="home" class="navbar-brand" style="min-width: 0">
+		                            <img class="navbar-brand-icon" src="/crm/assets/images/logo.png" width="250" alt="Cybersoft">
+		                        </a>
+		                    </div>
+		
+		                    <form action="/crm/task/task-edit" method="post">
+		                        <div class="form-group">
+	                                <label for="task">Tasks</label>
+	                                <select name="task" id="task" data-toggle="select" class="form-control">
+	                                	<c:forEach var="task" items="${ tasks }">
+	                                		<option value="${ task.id }">${ task.name } - ${ task.project.name }</option>
+	                                    </c:forEach>
+	                                </select>
+                            	</div>
+		                        
+		                        <div class="form-group">
+	                                <label for="status">Status</label>
+	                                <select name="status" id="status" data-toggle="select" class="form-control">
+	                                	<c:forEach var="stt" items="${ status }">
+	                                		<option value="${ stt.id }">${ stt.name }</option>
+	                                    </c:forEach>
+	                                </select>
+                            	</div>
+                            	
+		                        
+		                        <div class="form-group text-center">
+		                            <button class="btn btn-primary" type="submit">Save</button>
+		                        </div>
+		                    </form>
+		                </div>
+		            </div>
+		            <!-- // END .modal-body -->
+		        </div>
+		        <!-- // END .modal-content -->
+		    </div>
+		    <!-- // END .modal-dialog -->
+		</div>
+		<!-- // END .modal -->
 	</body>
 </html>

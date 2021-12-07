@@ -120,7 +120,7 @@
 			                            <td>${ user.phone }</td>
 			                            <td>${ user.address }</td>
 			                            <td>
-			                            	<a href="user/user-authorization?email=${ user.email }" class="btn btn-light text-dark">EDIT</a>	
+			                            	<a href="/crm/user/user-edit?email=${ user.email }" class="text-primary">Edit</a>	
 			                            </td>
 			                        </tr>
 		                        </c:forEach>
